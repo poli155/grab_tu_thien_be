@@ -22,6 +22,7 @@ class PointRepository extends BaseRepository implements PointRepositoryInterface
                 DB::raw('cast(round(cast(avg(points.star) as decimal(2,1)),1) as float) as star'),
             )
             ->whereNull('users.deleted')
+            ->whereNull('points.deleted')
             ->where('points.target_id', $id)
             ->groupby('points.target_id')
             ->first();
@@ -60,7 +61,32 @@ class PointRepository extends BaseRepository implements PointRepositoryInterface
             )
             ->whereNull('users.deleted')
             ->whereNull('blogs.deleted')
+            ->whereNull('points.deleted')
             ->where('points.blog_id', $id)
+            ->orderBy('points.id', 'desc')
+            ->get();
+    }
+
+    public function findpointbyuser($id)
+    {
+        return
+            Point::join('users', 'users.id', '=', 'points.created_by')
+            ->join('blogs', 'blogs.id', '=', 'points.blog_id')
+            ->select(
+                'points.id',
+                'points.blog_id',
+                'points.target_id',
+                'points.star',
+                'points.description',
+                'points.created_by',
+				'points.updated_at',
+                'users.name AS user_name',
+                'blogs.created_by AS owner',
+            )
+            ->whereNull('users.deleted')
+            ->whereNull('blogs.deleted')
+            ->whereNull('points.deleted')
+            ->where('points.target_id', $id)
             ->orderBy('points.id', 'desc')
             ->get();
     }

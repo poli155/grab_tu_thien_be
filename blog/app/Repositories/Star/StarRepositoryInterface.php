@@ -9,4 +9,5 @@ interface StarRepositoryInterface extends RepositoryInterface
 {
     public function averagestarbyuser($id);
     public function getuserstarbyblog($id, $blog_id);
+    public function findstarbyuser($id);
 }

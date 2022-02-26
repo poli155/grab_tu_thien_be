@@ -5,7 +5,7 @@ namespace App\Models;
 class Blog extends BaseAuth
 {
     protected $fillable = [
-        'id', 'status', 'title', 'location_id', 'date', 'description', 'created_by', 'updated_by'
+        'id', 'status', 'title', 'location_id', 'date', 'description', 'target', 'receive', 'created_by', 'updated_by'
     ];
 
     public function user()

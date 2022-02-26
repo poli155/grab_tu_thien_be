@@ -15,21 +15,13 @@ class StarTableSeeder extends Seeder
         Star::truncate();
 
         Star::create([
-            'blog_id' => 2,
+            'blog_id' => 1,
             'target_id' => 2,
             'star' => 5,
             'description' => 'Hỗ trợ tuyệt vời',
-            'created_by' => 5,
-            'updated_by' => 5,
+            'created_by' => 6,
+            'updated_by' => 6,
         ]);
 
-        Star::create([
-            'blog_id' => 2,
-            'target_id' => 3,
-            'star' => 3.5,
-            'description' => 'Chậm so với kế hoạch',
-            'created_by' => 5,
-            'updated_by' => 5,
-        ]);
     }
 }

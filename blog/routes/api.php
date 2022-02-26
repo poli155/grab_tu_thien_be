@@ -43,7 +43,9 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('evaluate/customers/blogs/{id}', 'BlogController@evaluatecustomer');
     Route::get('points/users/{id}/blogs/{blog_id}', 'BlogController@getPointEvaluate');
     Route::get('points/blogs/{id}', 'BlogController@showpointbyblog');
+    Route::get('points/users/{id}', 'BlogController@showpointbyuser');
     Route::get('stars/users/{id}/blogs/{blog_id}', 'BlogController@getStarEvaluate');
+    Route::get('stars/users/{id}', 'BlogController@showstarbyuser');
     Route::resources([
         'blogs' => 'BlogController'
     ]);

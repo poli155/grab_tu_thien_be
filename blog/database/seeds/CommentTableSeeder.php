@@ -15,17 +15,24 @@ class CommentTableSeeder extends Seeder
         Comment::truncate();
 
         Comment::create([
-            'blog_id' => '2',
-            'description' => 'Tôi có thể hỗ trợ 100 triệu',
+            'blog_id' => '1',
+            'description' => 'Thông tin rõ ràng, tôi có thể hỗ trợ',
             'created_by' => 2,
             'updated_by' => 2
         ]);
 
         Comment::create([
             'blog_id' => '2',
-            'description' => 'Tôi có thể hỗ trợ 100 triệu',
+            'description' => 'Xin thông tin về các phường sẽ hỗ trợ',
             'created_by' => 3,
             'updated_by' => 3
+        ]);
+
+        Comment::create([
+            'blog_id' => '2',
+            'description' => 'Phường Phú Thuận, Phú Mỹ, Tân Phú',
+            'created_by' => 7,
+            'updated_by' => 7
         ]);
     }
 }

@@ -18,6 +18,8 @@ class CreateBlogsTable extends Migration
             $table->tinyInteger('status')->default(1);
             $table->string('title')->nullable();
             $table->string('description')->nullable();
+            $table->integer('target')->nullable();
+            $table->integer('receive')->default(0);
             $table->integer('location_id')->nullable();
             $table->date('date')->nullable();
             $table->tinyInteger('deleted')->nullable();

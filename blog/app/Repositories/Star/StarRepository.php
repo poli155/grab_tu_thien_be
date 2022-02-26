@@ -22,6 +22,7 @@ class StarRepository extends BaseRepository implements StarRepositoryInterface
                 DB::raw('cast(round(cast(avg(stars.star) as decimal(2,1)),1) as float) as star'),
             )
             ->whereNull('users.deleted')
+            ->whereNull('stars.deleted')
             ->where('stars.target_id', $id)
             ->groupby('stars.target_id')
             ->first();
@@ -40,6 +41,30 @@ class StarRepository extends BaseRepository implements StarRepositoryInterface
             ->where('stars.target_id', $id)
             ->where('stars.blog_id', $blog_id)
             ->first();
+    }
+
+    public function findstarbyuser($id)
+    {
+        return
+            Star::join('users', 'users.id', '=', 'stars.created_by')
+            ->join('blogs', 'blogs.id', '=', 'stars.blog_id')
+            ->select(
+                'stars.id',
+                'stars.blog_id',
+                'stars.target_id',
+                'stars.star',
+                'stars.description',
+                'stars.created_by',
+				'stars.updated_at',
+                'users.name AS user_name',
+                'blogs.created_by AS owner',
+            )
+            ->whereNull('users.deleted')
+            ->whereNull('blogs.deleted')
+            ->whereNull('stars.deleted')
+            ->where('stars.target_id', $id)
+            ->orderBy('stars.id', 'desc')
+            ->get();
     }
     
     public function delete($id)

@@ -15,21 +15,13 @@ class PointTableSeeder extends Seeder
         Point::truncate();
 
         Point::create([
-            'blog_id' => 2,
-            'target_id' => 5,
+            'blog_id' => 1,
+            'target_id' => 6,
             'star' => 5,
             'description' => 'Thông tin cần giúp đỡ chính xác',
             'created_by' => 2,
             'updated_by' => 2,
         ]);
 
-        Point::create([
-            'blog_id' => 2,
-            'target_id' => 5,
-            'star' => 4,
-            'description' => 'Thông tin đúng thực tế',
-            'created_by' => 3,
-            'updated_by' => 3,
-        ]);
     }
 }

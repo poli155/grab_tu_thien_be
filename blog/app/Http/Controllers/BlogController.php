@@ -91,6 +91,7 @@ class BlogController extends Controller
         $input = [
             'title' => $request->get('title'),
             'description' =>  $request->get('description'),
+            'target' => $request->get('target'),
             'status' => 1,
             'location_id' => $request->get('location_id'),
             'date' => $request->get('date'),
@@ -131,6 +132,7 @@ class BlogController extends Controller
             'title' => $request->get('title') ?? $blog->title,
             'description' => $request->get('description') ?? $blog->description,
             'status' => $request->get('status') ?? $blog->status,
+            'target' => $request->get('target') ?? $blog->target,
             'location_id' => $request->get('location_id') ?? $blog->location_id,
             'date' => $request->get('date') ?? $blog->date,
         ];
@@ -214,6 +216,7 @@ class BlogController extends Controller
         $input = [
             'blog_id' => $id,
             'description' =>  $request->get('description'),
+            'money' => $request->get('money'),
             'status' => 0,
         ];
         if ( $filtered==null and $blog['status'] != 0 and $blog['date'] >= Carbon::now()->format('Y-m-d') and auth()->user()->role_id != 3 and $this->selectRepo->create($input)) {
@@ -232,6 +235,7 @@ class BlogController extends Controller
         $select = $this->selectRepo->find($id);
         $attributes = [
             'description' =>  $request->get('description'),
+            'money' => $request->get('money'),
         ];
         if ( ($select['created_by'] == auth()->user()->id or auth()->user()->role_id == 1) and $this->selectRepo->update($id, $attributes)) {
             return response([
@@ -247,17 +251,44 @@ class BlogController extends Controller
     public function confirmselect(Request $request, $id)
     {
         $select = $this->selectRepo->find($id);
-        $attributes = [
-            'status' => $request->get('status'),
-        ];
-        if ( ($select['owner'] == auth()->user()->id or auth()->user()->role_id == 1) and $this->selectRepo->update($id, $attributes)) {
-            return response([
-                'message' => 'Update successfully'
-            ], Response::HTTP_OK);
-        } else {
-            return response([
-                'message' => 'Update failed'
-            ], Response::HTTP_BAD_REQUEST);
+        $blog = $this->blogRepo->find($select['blog_id']);
+        if ($select['status'] == 0) {
+            $attributes = [
+                'status' => 1,
+            ];
+            $receive = $blog['receive'] + $select['money'];
+            $blog_attributes = [
+                'receive' => $receive,
+            ];
+            if ( ($select['owner'] == auth()->user()->id or auth()->user()->role_id == 1) and ($blog['receive'] + $select['money'] <= $blog['target']) and $this->selectRepo->update($id, $attributes)) {
+                $this->blogRepo->update($select['blog_id'], $blog_attributes);
+                return response([
+                    'message' => 'Update successfully'
+                ], Response::HTTP_OK);
+            } else {
+                return response([
+                    'message' => 'Update failed'
+                ], Response::HTTP_BAD_REQUEST);
+            }
+        }
+        else {
+            $attributes = [
+                'status' => 0,
+            ];
+            $receive = $blog['receive'] - $select['money'];
+            $blog_attributes = [
+                'receive' => $receive,
+            ];
+            if ( ($select['owner'] == auth()->user()->id or auth()->user()->role_id == 1) and $this->selectRepo->update($id, $attributes)) {
+                $this->blogRepo->update($select['blog_id'], $blog_attributes);
+                return response([
+                    'message' => 'Update successfully'
+                ], Response::HTTP_OK);
+            } else {
+                return response([
+                    'message' => 'Update failed'
+                ], Response::HTTP_BAD_REQUEST);
+            }
         }
     }
 
@@ -408,6 +439,30 @@ class BlogController extends Controller
         $point = $this->pointRepo->findpointbyblog($id);
         if ($point) {
             return $point;
+        } else {
+            return response()->json([
+                'message' => 'Not Found'
+            ], Response::HTTP_NOT_FOUND);
+        }   
+    }
+
+    public function showpointbyuser($id)
+    {
+        $point = $this->pointRepo->findpointbyuser($id);
+        if ($point) {
+            return $point;
+        } else {
+            return response()->json([
+                'message' => 'Not Found'
+            ], Response::HTTP_NOT_FOUND);
+        }   
+    }
+
+    public function showstarbyuser($id)
+    {
+        $star = $this->starRepo->findstarbyuser($id);
+        if ($star) {
+            return $star;
         } else {
             return response()->json([
                 'message' => 'Not Found'

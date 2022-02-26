@@ -17,6 +17,7 @@ class CreateBlogselectsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('blog_id');
             $table->string('description')->nullable();
+            $table->integer('money')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('deleted')->nullable();
             $table->integer('created_by')->nullable();

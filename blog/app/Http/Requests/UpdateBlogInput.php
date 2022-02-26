@@ -24,6 +24,8 @@ class UpdateBlogInput extends BaseRequest
         return [
             'title' => 'string',
             'description' => 'string',
+            'target' => 'numeric',
+            'receive' => 'numeric',
             'location_id' => 'numeric|min:1|max:63',
             'date' => 'date_format:Y-m-d',
         ];

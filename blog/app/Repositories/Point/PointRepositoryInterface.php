@@ -10,4 +10,5 @@ interface PointRepositoryInterface extends RepositoryInterface
     public function averagepointbyuser($id);
     public function getuserpointbyblog($id, $blog_id);
     public function findpointbyblog($id);
+    public function findpointbyuser($id);
 }

@@ -26,6 +26,8 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
             'blogs.status',
             'blogs.title',
             'blogs.description',
+            'blogs.target',
+            'blogs.receive',
             'blogs.location_id',
             'locations.location_name',
             'blogs.date',
@@ -33,7 +35,7 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
         )
             ->whereNull('users.deleted')
             ->orderBy('blogs.id', 'desc')
-            ->paginate(2);
+            ->paginate(5);
     }
 
     public function getByUser($id)
@@ -48,6 +50,8 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
             'blogs.status',
             'blogs.title',
             'blogs.description',
+            'blogs.target',
+            'blogs.receive',
             'blogs.location_id',
             'locations.location_name',
             'blogs.date',
@@ -56,7 +60,7 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
             ->where('blogs.created_by', $id)
             ->whereNull('users.deleted')
             ->orderBy('blogs.id', 'desc')
-            ->paginate(2);
+            ->paginate(5);
     }
 
     public function getWithSelect($id)
@@ -72,6 +76,8 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
             'blogs.status',
             'blogs.title',
             'blogs.description',
+            'blogs.target',
+            'blogs.receive',
             'blogs.location_id',
             'locations.location_name',
             'blogs.date',
@@ -80,7 +86,7 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
             ->where('blogselects.created_by', $id)
             ->whereNull('blogselects.deleted')
             ->orderBy('blogs.id', 'desc')
-            ->paginate(2);
+            ->paginate(5);
     }
 
     public function find($id)
@@ -96,6 +102,8 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
                 'blogs.status',
                 'blogs.title',
                 'blogs.description',
+                'blogs.target',
+                'blogs.receive',
                 'blogs.location_id',
                 'locations.location_name',
                 'blogs.date',
@@ -117,6 +125,8 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
             'blogs.status',
             'blogs.title',
             'blogs.description',
+            'blogs.target',
+            'blogs.receive',
             'blogs.location_id',
             'locations.location_name',
             'blogs.date',
@@ -129,7 +139,7 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
                 }
             })
             ->orderBy($order, $ordertype)
-            ->paginate(1);
+            ->paginate(5);
     }
 
     public function delete($id)

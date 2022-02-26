@@ -5,7 +5,7 @@ namespace App\Models;
 class Blogselect extends BaseAuth
 {
     protected $fillable = [
-        'id', 'blog_id', 'description', 'status', 'created_by', 'updated_by'
+        'id', 'blog_id', 'description', 'money', 'status', 'created_by', 'updated_by'
     ];
 
     public function user()

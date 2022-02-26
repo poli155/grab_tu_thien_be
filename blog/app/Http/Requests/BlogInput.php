@@ -24,6 +24,7 @@ class BlogInput extends BaseRequest
         return [
             'title' => 'required|string',
             'description' => 'string',
+            'target' => 'required|numeric',
             'location_id' => 'required|numeric|min:1|max:63',
             'date' => 'required|date_format:Y-m-d',
         ];
