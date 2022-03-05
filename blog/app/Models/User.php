@@ -10,7 +10,7 @@ class User extends BaseAuth
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'role_id', 'name', 'location_id', 'phone', 'birthday', 'status', 'created_by', 'update_by'
+        'email', 'password', 'role_id', 'name', 'location_id', 'phone', 'birthday', 'created_by', 'update_by'
     ];
 
     /**

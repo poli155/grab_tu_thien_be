@@ -33,8 +33,16 @@ class PointRepository extends BaseRepository implements PointRepositoryInterface
         return
             Point::join('users', 'users.id', '=', 'points.target_id')
             ->select(
+                'points.id',
+                'points.blog_id',
+                'points.target_id',
+                'points.created_by',
                 'points.star as point',
                 'points.description',
+                'points.updated_at',
+                'points.result',
+                'points.attitude',
+                'points.suggest',
             )
             ->whereNull('users.deleted')
             ->whereNull('points.deleted')
@@ -56,6 +64,9 @@ class PointRepository extends BaseRepository implements PointRepositoryInterface
                 'points.description',
                 'points.created_by',
 				'points.updated_at',
+                'points.result',
+                'points.attitude',
+                'points.suggest',
                 'users.name AS user_name',
                 'blogs.created_by AS owner',
             )
@@ -78,6 +89,9 @@ class PointRepository extends BaseRepository implements PointRepositoryInterface
                 'points.target_id',
                 'points.star',
                 'points.description',
+                'points.result',
+                'points.attitude',
+                'points.suggest',
                 'points.created_by',
 				'points.updated_at',
                 'users.name AS user_name',

@@ -33,8 +33,9 @@ class StarRepository extends BaseRepository implements StarRepositoryInterface
         return
             Star::join('users', 'users.id', '=', 'stars.target_id')
             ->select(
+                'stars.id',
                 'stars.star',
-                'stars.description'
+                'stars.description',
             )
             ->whereNull('users.deleted')
             ->whereNull('stars.deleted')
@@ -54,6 +55,9 @@ class StarRepository extends BaseRepository implements StarRepositoryInterface
                 'stars.target_id',
                 'stars.star',
                 'stars.description',
+                'stars.result',
+                'stars.attitude',
+                'stars.suggest',
                 'stars.created_by',
 				'stars.updated_at',
                 'users.name AS user_name',

@@ -18,7 +18,10 @@ class StarTableSeeder extends Seeder
             'blog_id' => 1,
             'target_id' => 2,
             'star' => 5,
-            'description' => 'Hỗ trợ tuyệt vời',
+            'description' => 'Hỗ trợ ổn, nhà tài trợ tới đúng hẹn và trao tặng đúng số tiền đăng kí',
+            'result' => 1,
+            'attitude' => 2,
+            'suggest' => 'Cần cải thiện cách ăn nói ở các lần từ thiện sau',
             'created_by' => 6,
             'updated_by' => 6,
         ]);

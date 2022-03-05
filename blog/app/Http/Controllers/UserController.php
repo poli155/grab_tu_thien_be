@@ -63,7 +63,6 @@ class UserController extends Controller
             'phone' => $request->get('phone'),
             'location_id' => $request->get('location_id'),
             'role_id' =>  $request->get('role_id'),
-            'status' => 1
         ];
         if ($this->userRepo->create($input)) {
             return response()->json([
@@ -154,7 +153,6 @@ class UserController extends Controller
             'locaion_id' => $request->get('location_id') ?? $currentUser->location_id,
             'birthday' => $request->get('birthday') ?? $currentUser->birthday,
             'name' => $request->get('name') ?? $currentUser->name,
-            'status' => $request->get('status') ?? $currentUser->status,
         ];
         if (isset($request['password'])) {
             $attributes['password'] = Hash::make($request->get('password'));

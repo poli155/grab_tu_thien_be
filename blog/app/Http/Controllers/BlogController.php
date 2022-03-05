@@ -195,6 +195,7 @@ class BlogController extends Controller
             $select->star = $star?$star['star']:null;
             $select->starselect = $starselect?$starselect['star']:null;
             $select->stardescription = $starselect?$starselect['description']:null;
+            $select->starid = $starselect?$starselect['id']:null;
         }
         if ($selects) {
             return $selects;
@@ -391,6 +392,9 @@ class BlogController extends Controller
             'blog_id' => $blogselect['blog_id'],
             'target_id' => $blogselect['created_by'],
             'star' => $request->get('star'),
+            'result' => $request->get('result'),
+            'attitude' => $request->get('attitude'),
+            'suggest' => $request->get('suggest'),
             'description' =>  $request->get('description'),
         ];
         if ( $this->starRepo->create($input)) {
@@ -404,6 +408,27 @@ class BlogController extends Controller
         }        
     }
 
+    public function editstar(Request $request, $id)
+    {
+        $star = $this->starRepo->find($id);
+        $attributes = [
+            'star' => $request->get('star'),
+            'result' => $request->get('result'),
+            'attitude' => $request->get('attitude'),
+            'suggest' => $request->get('suggest'),
+            'description' =>  $request->get('description'),
+        ];
+        if (($star['created_by'] == auth()->user()->id) and $this->starRepo->update($id, $attributes)) {
+            return response([
+                'message' => 'Update successfully'
+            ], Response::HTTP_OK);
+        } else {
+            return response([
+                'message' => 'Update failed'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
     public function evaluatecustomer(Request $request, $id)
     {
         $blog = $this->blogRepo->find($id);
@@ -412,6 +437,9 @@ class BlogController extends Controller
             'target_id' => $blog['created_by'],
             'star' => $request->get('star'),
             'description' =>  $request->get('description'),
+            'result' => $request->get('result'),
+            'attitude' => $request->get('attitude'),
+            'suggest' => $request->get('suggest'),
         ];
         if ( $this->pointRepo->create($input)) {
             return response()->json([
@@ -422,6 +450,27 @@ class BlogController extends Controller
                 'message' => 'Evaluate Failed'
             ], Response::HTTP_BAD_REQUEST);
         }        
+    }
+
+    public function editpoint(Request $request, $id)
+    {
+        $point = $this->pointRepo->find($id);
+        $attributes = [
+            'star' => $request->get('star') ?? $point->star,
+            'result' => $request->get('result'),
+            'attitude' => $request->get('attitude'),
+            'suggest' => $request->get('suggest'),
+            'description' =>  $request->get('description'),
+        ];
+        if (($point['created_by'] == auth()->user()->id) and $this->pointRepo->update($id, $attributes)) {
+            return response([
+                'message' => 'Update successfully'
+            ], Response::HTTP_OK);
+        } else {
+            return response([
+                'message' => 'Update failed'
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     public function getPointEvaluate($id, $blog_id)
@@ -456,6 +505,30 @@ class BlogController extends Controller
                 'message' => 'Not Found'
             ], Response::HTTP_NOT_FOUND);
         }   
+    }
+
+    public function showpoint($id)
+    {
+        $point = $this->pointRepo->find($id);
+        if ($point) {
+            return $point;
+        } else {
+            return response()->json([
+                'message' => 'Not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function showstar($id)
+    {
+        $star = $this->starRepo->find($id);
+        if ($star) {
+            return $star;
+        } else {
+            return response()->json([
+                'message' => 'Not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     public function showstarbyuser($id)

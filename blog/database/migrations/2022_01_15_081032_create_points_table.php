@@ -19,6 +19,9 @@ class CreatePointsTable extends Migration
             $table->integer('target_id');
             $table->float('star');
             $table->string('description')->nullable();
+            $table->integer('result');
+            $table->integer('attitude')->nullable();
+            $table->string('suggest')->nullable();
             $table->tinyInteger('deleted')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

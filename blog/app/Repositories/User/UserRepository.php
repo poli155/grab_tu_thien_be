@@ -29,7 +29,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             'users.role_id',
             'users.location_id',
             'users.birthday',
-            'users.status'
         )
             ->where(['users.email' => $email])
             ->first();
@@ -48,7 +47,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             'users.role_id',
             'users.location_id',
             'users.birthday',
-            'users.status'
         )
             ->orderBy('users.id', 'asc')
             ->get();
@@ -69,7 +67,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                 'users.role_id',
                 'users.location_id',
                 'users.birthday',
-                'users.status'
             )
             ->find($id);
     }
@@ -98,7 +95,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                 'users.phone',
                 'locations.location_name',
                 'users.birthday',
-                'users.status'
             )
             ->where('users.name', 'ilike', '%'.$query.'%' )
             ->orderBy('users.id', 'asc');

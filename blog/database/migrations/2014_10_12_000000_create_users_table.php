@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->date('birthday')->nullable();
             $table->integer('location_id')->nullable();
-            $table->tinyInteger('status')->default(1);
             $table->tinyInteger('deleted')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

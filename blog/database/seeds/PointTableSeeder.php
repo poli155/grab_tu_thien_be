@@ -18,7 +18,10 @@ class PointTableSeeder extends Seeder
             'blog_id' => 1,
             'target_id' => 6,
             'star' => 5,
-            'description' => 'Thông tin cần giúp đỡ chính xác',
+            'result' => 1,
+            'attitude' => 1,
+            'suggest' => 'Với các đợt từ thiện sau, chủ bài viết cần trao nhà tài trợ danh sách các hộ dân',
+            'description' => 'Thông tin cần giúp đỡ chính xác, chủ bài viết nhiệt tình',
             'created_by' => 2,
             'updated_by' => 2,
         ]);
